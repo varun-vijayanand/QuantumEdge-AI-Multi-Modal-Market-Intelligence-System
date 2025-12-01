@@ -1,0 +1,28 @@
+server:
+  host: "0.0.0.0"
+  port: 8000
+  workers: 4
+  reload: false
+  
+models:
+  nlp_model_path: "./models/nlp/finetuned_model"
+  tabular_model_path: "./models/tabular/xgboost_model.json"
+  vector_store_path: "./models/embeddings/faiss_index"
+  
+rate_limiting:
+  requests_per_minute: 60
+  burst_limit: 10
+  
+caching:
+  enabled: true
+  ttl_seconds: 300
+  redis_url: "redis://localhost:6379"
+  
+monitoring:
+  enable_prometheus: true
+  metrics_port: 9090
+  log_level: "INFO"
+  
+security:
+  api_key_header: "X-API-Key"
+  require_authentication: false

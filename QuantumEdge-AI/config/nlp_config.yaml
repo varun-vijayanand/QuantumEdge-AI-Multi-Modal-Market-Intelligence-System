@@ -1,0 +1,33 @@
+model:
+  name: "mrm8488/distilroberta-finetuned-financial-news-sentiment-analysis"
+  cache_dir: "./models/cache"
+  max_length: 512
+  batch_size: 16
+  
+training:
+  learning_rate: 2e-5
+  epochs: 10
+  warmup_steps: 100
+  weight_decay: 0.01
+  gradient_accumulation_steps: 1
+  
+data:
+  text_columns: ["headline", "body"]
+  label_column: "sentiment"
+  label_mapping:
+    positive: 2
+    neutral: 1
+    negative: 0
+  
+preprocessing:
+  remove_urls: true
+  remove_special_chars: true
+  lowercase: true
+  remove_stopwords: true
+  stem: false
+  lemmatize: true
+
+evaluation:
+  metrics: ["accuracy", "precision", "recall", "f1"]
+  test_size: 0.2
+  random_state: 42

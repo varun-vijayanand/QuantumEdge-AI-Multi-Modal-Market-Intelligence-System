@@ -1,0 +1,48 @@
+model:
+  xgboost:
+    n_estimators: 1000
+    learning_rate: 0.01
+    max_depth: 6
+    objective: "reg:squarederror"
+    random_state: 42
+    
+  catboost:
+    iterations: 1000
+    learning_rate: 0.03
+    depth: 6
+    loss_function: "RMSE"
+    random_state: 42
+    
+  lightgbm:
+    n_estimators: 1000
+    learning_rate: 0.05
+    num_leaves: 31
+    objective: "regression"
+    random_state: 42
+
+features:
+  numerical: ["volume", "price", "bid", "ask", "spread"]
+  categorical: ["symbol", "sector", "exchange"]
+  technical_indicators:
+    - "rsi"
+    - "macd"
+    - "bollinger_bands"
+    - "moving_average"
+    
+training:
+  target_column: "next_day_return"
+  validation_size: 0.2
+  test_size: 0.2
+  cv_folds: 5
+  
+preprocessing:
+  impute_missing: true
+  scale_numerical: true
+  encode_categorical: true
+  remove_outliers: true
+  outlier_threshold: 3.0
+
+anomaly_detection:
+  method: "isolation_forest"
+  contamination: 0.01
+  random_state: 42
